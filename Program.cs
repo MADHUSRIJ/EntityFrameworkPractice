@@ -1,3 +1,7 @@
+using EntityFrameworkPractice.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
+
 namespace EntityFrameworkPractice
 {
     public class Program
@@ -8,6 +12,13 @@ namespace EntityFrameworkPractice
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<ApplicationDbContext>(
+                options =>
+                    options.UseSqlServer
+                    (
+                        builder.Configuration.GetConnectionString("StudentDb")
+                    )
+            );
 
             var app = builder.Build();
 
